@@ -1,0 +1,86 @@
+// Override default variables before the import
+$font-family-base: 'Avenir';
+$spacer: 5px;
+
+$spacers: (
+  0: 0,
+  1: (
+    $spacer * 0.25,
+  ),
+  2: (
+    $spacer * 0.5,
+  ),
+  3: $spacer,
+  4: (
+    $spacer * 1.5,
+  ),
+  5: (
+    $spacer * 2,
+  ),
+  6: (
+    $spacer * 3,
+  ),
+  7: (
+    $spacer * 3.5,
+  ),
+  15: (
+    $spacer * 3,
+  ),
+  20: (
+    $spacer * 4,
+  ),
+  25: (
+    $spacer * 5,
+  ),
+  40: (
+    $spacer * 8,
+  ),
+);
+
+$border-radius: 10px;
+$border-radius-lg: 50px;
+$input-border: #b1b1b1;
+$body-bg: #f5f5f5;
+$dark: #666666;
+$snow: #dedede;
+$primary: #f36421;
+$secondary: #075ca6;
+$green: #58b950;
+$white: #fff;
+
+$snow-light: #f3f3f3;
+$snow-dark: #e8e8e8;
+
+body {
+  display: flex;
+}
+
+.bg-background {
+  background-color: $body-bg;
+}
+
+.container {
+  max-width: 100% !important;
+  padding-left: 50px !important;
+  padding-right: 50px !important;
+}
+
+#app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.text-muted {
+  color: #6c757d !important;
+}
+
+// Component Styles
+@import './demo';
+@import './scanner-agencies';
+@import './modal';
+// Import fonts
+@import './fonts';
+
+@import 'date-picker';
+@import 'date-picker-lib';

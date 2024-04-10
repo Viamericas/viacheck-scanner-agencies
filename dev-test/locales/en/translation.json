@@ -1,0 +1,17 @@
+{
+"msgWithOutFromDate": "A date is required for the from date. Please enter a from date.",
+"msgWithOutToDate": "A date is required for the end date. Please enter an end date.",
+"msgToDateGreaterCurrentDate": "The end date cannot be higher than today's date.  Please correct the end date",
+"msgFromGreaterToDate": "The from date cannot be higher than the end date.  Please correct the from date.",
+  "scanner": {
+    "agency": "Agency",
+    "type": "Type",  
+    "dateCreated":"Date Created",
+    "agencyCode":"Agency Code",
+    "dateFrom":"Date From",
+    "dateTo":"Date To",
+    "selectAgency": "Select Agency",
+    "search": "Search",
+    "scannerAgencies": "Scanner - Agencies"
+    }
+}

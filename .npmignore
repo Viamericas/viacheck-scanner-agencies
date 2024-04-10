@@ -1,0 +1,14 @@
+
+/.circleci
+/.vscode
+/coverage
+/doc
+/node_modules
+/src
+.babelrc
+.eslintignore
+.eslintrc
+.gitignore
+.prettierrc
+webpack.config.*
+package-lock.json

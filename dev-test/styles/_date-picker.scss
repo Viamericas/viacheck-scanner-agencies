@@ -1,0 +1,49 @@
+@import 'date-picker-lib';
+
+.DayPicker {
+  display: block;
+  font-size: 1rem;
+  background: #ffffff !important;
+  z-index: 2;
+  position: absolute;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+  border-radius: 5%;
+  margin-bottom: 10px;
+}
+
+.DayPickerInput {
+  display: block !important;
+  input {
+    background-position: right;
+    background-repeat: no-repeat;
+    background-size: 10% 70%;
+    background-origin: content-box;
+    border: 0;
+    border-bottom: 1px solid #b1b1b1;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    font-size: 20px;
+    line-height: 24px;
+    border-radius: 0;
+    height: auto;
+    padding: 0;
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+    background-color: transparent;
+    width: 100%;
+
+    &::-ms-clear {
+      display: none;
+    }
+
+    &:focus {
+      color: #495057;
+      border-color: #80bdff;
+      outline: 0;
+      box-shadow: none;
+      background-color: unset;
+      border-bottom-color: #0000008a !important;
+    }
+  }
+}
