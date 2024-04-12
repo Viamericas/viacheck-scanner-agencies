@@ -1,7 +1,7 @@
 {
   "private": false,
   "name": "@viamericas/viacheck-scanner-agencies",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A React component that sums two number.",
   "main": "build/index.js",
   "scripts": {

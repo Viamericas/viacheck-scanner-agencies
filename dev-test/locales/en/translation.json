@@ -12,6 +12,10 @@
     "dateTo":"Date To",
     "selectAgency": "Select Agency",
     "search": "Search",
-    "scannerAgencies": "Scanner - Agencies"
+    "scannerAgencies": "Scanner - Agencies",
+    "noData": "No records found; try to narrow your search",
+    "networkMessage": "Error 410: We cannot communicate with the server, make sure you are connected to the Internet and please try again.",
+    "errorOperation": "An error occurred in the process. Please try again."
     }
+  
 }

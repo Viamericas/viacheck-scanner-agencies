@@ -13,6 +13,10 @@
     "dateTo":"Fecha Fin",
     "selectAgency": "Seleccionar Agencia",
     "search": "Buscar",
-    "scannerAgencies": "Escaner por Agencias"
+    "scannerAgencies": "Escaner por Agencias",
+    "noData": "No existe información con los filtros seleccionados",
+    "networkMessage": "Error 410: No podemos comunicarnos con el servidor, Verifique su conexión de internet e intente nuevamente por favor.",
+    "errorOperation": "Ocurrió un error en el proceso. Por favor intente nuevamente."
     }
+ 
 }

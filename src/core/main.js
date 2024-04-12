@@ -66,6 +66,14 @@ const Main = ({
       .then(response => {
         if (response?.data && response.data) {
           setAgenciesArray(response.data);
+          if (response.data.length === 0) {
+            setMessage({
+              show: true,
+              textMessage: t('scanner.noData'),
+
+              uxMessage: { typeMessageClass: 'alert-warning', close: 'close' },
+            });
+          }
         } else {
           setAgenciesArray([]);
         }
@@ -76,8 +84,8 @@ const Main = ({
         setMessage({
           show: true,
           textMessage: Validation.Message.isNetwork(e.message)
-            ? t('makerClean.networkMessage')
-            : t('makerClean.errorOperation'),
+            ? t('scanner.networkMessage')
+            : t('scanner.errorOperation'),
           uxMessage: { typeMessageClass: 'alert-danger', close: 'close' },
         });
         setIsLoading(false);
