@@ -3,20 +3,21 @@
   "msgWithOutToDate": "La fecha hasta es requerida. Por favor ingrese una fecha de finalización.",
   "msgToDateGreaterCurrentDate": "La fecha hasta no puede ser mayor a la fecha actual. Por favor corrija la fecha hasta",
   "msgFromGreaterToDate": "La fecha desde no puede ser mayor a la fecha hasta. Por favor corrija la fecha desde.",
-  
+
   "scanner": {
     "agency": "Agencia",
-    "type": "Tipo de Scanner",  
-    "dateCreated":"Fecha de Creación",
-    "agencyCode":"Codigo de Agencia",
-    "dateFrom":"Fecha Inicio",
-    "dateTo":"Fecha Fin",
+    "type": "Tipo de Scanner",
+    "dateCreated": "Fecha de Creación",
+    "agencyCode": "Codigo de Agencia",
+    "dateFrom": "Fecha Inicio",
+    "dateTo": "Fecha Fin",
     "selectAgency": "Seleccionar Agencia",
     "search": "Buscar",
     "scannerAgencies": "Escaner por Agencias",
     "noData": "No existe información con los filtros seleccionados",
     "networkMessage": "Error 410: No podemos comunicarnos con el servidor, Verifique su conexión de internet e intente nuevamente por favor.",
-    "errorOperation": "Ocurrió un error en el proceso. Por favor intente nuevamente."
-    }
- 
+    "errorOperation": "Ocurrió un error en el proceso. Por favor intente nuevamente.",
+    "userName": "Usuario",
+    "export": "Exportar"
+  }
 }

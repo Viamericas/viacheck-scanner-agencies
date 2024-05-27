@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Services, Validation } from '@viamericas/viam-utils';
 import Loading from '@viamericas/viam-loading';
 import MessageInformation from '@viamericas/viam-message-information';
+import Pagination from '@viamericas/viam-pagination-reports';
 import moment from 'moment';
+import * as XLSX from 'xlsx';
 import ScannerTable from './components/scannerTable';
 import Filters from './components/filters';
 
@@ -10,7 +12,9 @@ const dateIso = new Date();
 const currentDate = moment(dateIso.toISOString()).format('MM/DD/YYYY');
 
 const Main = ({
+  itemsPage,
   className,
+  maxButtonsArea,
   agenciesUrl,
   token,
   axiosInstance,
@@ -23,12 +27,17 @@ const Main = ({
   const [toDate, setToDate] = useState(currentDate);
   const [agencyCodeArray, setAgencyCodeArray] = useState([]);
   const [agencies, setAgencies] = useState([]);
-
+  const [totalTransactions, setTotalTransactions] = useState(0);
   const [message, setMessage] = useState({
     show: false,
     uxMessage: '',
     textMessage: '',
   });
+
+  const [paginationSelected, setPaginationSelected] = useState(
+    Number(itemsPage)
+  );
+  const [currentPage, setCurrentPage] = useState(Number(1));
 
   const getAllAgencies = async () => {
     try {
@@ -48,24 +57,33 @@ const Main = ({
     }
   };
 
-  const onGetScanners = () => {
-    setIsLoading(true);
-
-    Services.Rest.instance({
+  const getScannerAgency = page => {
+    return Services.Rest.instance({
       url: `${agenciesUrl}/agencies/get-scanners-installed`,
       data: {
         dateFrom: fromDate,
         dateTo: toDate,
         agency:
           agencyCodeArray.length > 0 ? agencyCodeArray[0].agencyName : null,
+        pageSize: itemsPage,
+        pageNum: page,
       },
       token,
       method: 'POST',
       axiosInstance,
-    })
+    });
+  };
+
+  const onGetScanners = page => {
+    setIsLoading(true);
+
+    getScannerAgency(page)
       .then(response => {
         if (response?.data && response.data) {
           setAgenciesArray(response.data);
+          setTotalTransactions(
+            response.data.length === 0 ? 0 : response.data[0].totalRecords
+          );
           if (response.data.length === 0) {
             setMessage({
               show: true,
@@ -144,7 +162,33 @@ const Main = ({
   const onSearch = () => {
     setMessage({ show: false });
     if (validateDates(fromDate, toDate)) {
-      onGetScanners();
+      setCurrentPage(Number(1));
+      onGetScanners(1);
+    } else {
+      setAgenciesArray([]);
+    }
+  };
+
+  const handleSelectPage = async (event, page) => {
+    event.preventDefault();
+
+    const _currentPage = Number(page);
+    setCurrentPage(_currentPage);
+
+    if (validateDates(fromDate, toDate)) {
+      onGetScanners(_currentPage);
+    } else {
+      setAgenciesArray([]);
+    }
+  };
+
+  const handleSelectPagination = async (event, paginationInput) => {
+    event.preventDefault();
+
+    setPaginationSelected(paginationInput);
+
+    if (validateDates(fromDate, toDate)) {
+      onGetScanners(paginationInput);
     } else {
       setAgenciesArray([]);
     }
@@ -152,7 +196,6 @@ const Main = ({
 
   useEffect(() => {
     getAllAgencies();
-    // onGetScanners();
   }, []);
 
   const onHandleCloseMessage = () => {
@@ -183,12 +226,84 @@ const Main = ({
       } else {
         setAgencyCodeArray([]);
       }
+    } else if (event.length > 5) {
+      const agencySelected = agencies.filter(
+        agency => agency.agencyName === event.toUpperCase()
+      );
+
+      setAgencyCodeArray(agencySelected);
+    } else {
+      setAgencyCodeArray([]);
+    }
+  };
+
+  const handleKeyDownEnter = event => {
+    if (event.key === 'Enter') {
+      onSearch();
+
+      if (event.target.type === 'text') {
+        event.target.blur();
+      }
+    }
+  };
+
+  const useEventListener = (eventName, handler, element = window) => {
+    const savedHandler = useRef();
+    useEffect(() => {
+      savedHandler.current = handler;
+    }, [handler]);
+
+    useEffect(() => {
+      const isSupported = element && element.addEventListener;
+      if (!isSupported) {
+        return;
+      }
+      const eventListener = event => savedHandler.current(event);
+      // Add event listener
+      element.addEventListener(eventName, eventListener);
+      // eslint-disable-next-line consistent-return
+      return () => {
+        // Remove event listener
+        element.removeEventListener(eventName, eventListener);
+      };
+    }, [eventName, element]);
+  };
+
+  useEventListener('keydown', handleKeyDownEnter);
+
+  const onHandlerExport = async () => {
+    setIsLoading(true);
+
+    try {
+      const info = await getScannerAgency(-1);
+      if (info && info.data.length > 0) {
+        const newData = [];
+        newData.push([
+          t('scanner.agency'),
+          t('scanner.type'),
+          t('scanner.dateCreated'),
+        ]);
+        info.data.forEach(item => {
+          const newItem = [item.agency, item.scannerType, item.creationDate];
+          newData.push(newItem);
+        });
+
+        const ws = XLSX.utils.aoa_to_sheet(newData);
+        const wb = XLSX.utils.book_new();
+
+        XLSX.utils.book_append_sheet(wb, ws, 'Result');
+        setIsLoading(false);
+        XLSX.writeFile(wb, 'scannerReport.xlsx');
+      }
+    } catch (e) {
+      setIsLoading(false);
+      console.log('Error in onHandlerExport', e);
     }
   };
 
   return (
     <div data-testid="scanner-agencies" className={className}>
-      <div className="scanner__container-title">
+      <div className="scanner-report__container-title">
         <h2>{t('scanner.scannerAgencies')}</h2>
       </div>
       <br />
@@ -205,9 +320,10 @@ const Main = ({
         <Loading
           loadingImage={loadingImage}
           uxLoading={{
-            mainContainer: 'scanner__modal-loading-frame scanner__zindex1000',
+            mainContainer:
+              'scanner-report__modal-loading-frame scanner-report__zindex1000',
             subContainer:
-              'scanner__modal-dialog scanner__notice-modal scanner__align-loading ',
+              'scanner-report__modal-dialog scanner-report__notice-modal scanner-report__align-loading ',
             image: 'img-fluid',
             loadingImage,
           }}
@@ -228,9 +344,37 @@ const Main = ({
         />
       </div>
 
-      <div className="scanner__table-container">
+      <div className="scanner-report__table-container">
         {agenciesArray && agenciesArray.length > 0 ? (
-          <ScannerTable agenciesArray={agenciesArray} t={t} />
+          <div className="scanner-report__table-subContainer">
+            <ScannerTable agenciesArray={agenciesArray} t={t} />
+            <br />
+            <div className="container-pagination-modified">
+              <Pagination
+                paginationSelected={paginationSelected}
+                totalRecords={Number(totalTransactions)}
+                currentPage={currentPage}
+                handleSelectPage={handleSelectPage}
+                handleSelectPagination={handleSelectPagination}
+                titlePagination={t('paginator.checksPerPage')}
+                titleFirst={t('paginator.first')}
+                titlePrevious={t('paginator.before')}
+                titleNext={t('paginator.next')}
+                titleLast={t('paginator.last')}
+                maxButtonsArea={Number(maxButtonsArea)}
+              />
+              <div className="right-align-table summary-component-container">
+                <input
+                  type="button"
+                  className="btn btn-secondary"
+                  value={t('scanner.export')}
+                  onClick={() => {
+                    onHandlerExport();
+                  }}
+                />
+              </div>
+            </div>
+          </div>
         ) : (
           ''
         )}

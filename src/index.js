@@ -6,6 +6,7 @@ import MainT from './core/main';
 const Demo = ({
   paginationSelected,
   itemsPage,
+  maxButtonsArea,
   agenciesUrl,
   token,
   className,
@@ -30,6 +31,7 @@ const Demo = ({
       t={t || loadTranslation()}
       loadingImage={loadingImage}
       user={user}
+      maxButtonsArea={maxButtonsArea}
     />
   );
 };
@@ -41,7 +43,7 @@ Demo.propTypes = {
 };
 
 Demo.defaultProps = {
-  className: 'scanner',
+  className: 'scanner-report',
 };
 
 export default Demo;

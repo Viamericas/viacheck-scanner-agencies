@@ -1,7 +1,7 @@
 {
   "private": false,
   "name": "@viamericas/viacheck-scanner-agencies",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "description": "A React component that sums two number.",
   "main": "build/index.js",
   "scripts": {
@@ -47,23 +47,29 @@
     "react-i18next": "11.14.3"
   },
   "dependencies": {
+    "@viamericas/datepicker-multi-language": "3.0.2",
     "@viamericas/viam-alert-messages": "^6.0.4",
     "@viamericas/viam-loading": "1.0.0",
     "@viamericas/viam-message-information": "1.0.0",
+    "@viamericas/viam-pagination-reports": "^1.0.1",
     "@viamericas/viam-utils": "^2.2.0",
-    "@viamericas/datepicker-multi-language": "3.0.2",
     "i18next": "21.5.4",
     "i18next-http-backend": "1.3.1",
+    "moment": "2.29.1",
     "prop-types": "15.7.2",
     "react": "17.0.2",
     "react-bootstrap-typeahead": "^6.0.0",
     "react-dom": "17.0.2",
     "react-i18next": "11.14.3",
-    "react-tooltip": "^4.5.1",
-    "xlsx": "^0.18.5",
-    "moment": "2.29.1"
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
+    "@viamericas/datepicker-multi-language": "3.0.2",
+    "@viamericas/viam-alert-messages": "^6.0.4",
+    "@viamericas/viam-loading": "1.0.0",
+    "@viamericas/viam-message-information": "1.0.0",
+    "@viamericas/viam-pagination-reports": "^1.0.1",
+    "@viamericas/viam-utils": "^2.2.0",
     "@babel/core": "7.16.5",
     "@babel/plugin-proposal-class-properties": "7.16.5",
     "@babel/plugin-transform-runtime": "7.16.5",

@@ -55,5 +55,11 @@ module.exports = {
     '@viamericas/datepicker-multi-language':
       '@viamericas/datepicker-multi-language',
     moment: 'moment',
+    '@viamericas/viam-pagination-reports':
+      '@viamericas/viam-pagination-reports',
+    '@viamericas/viam-utils': '@viamericas/viam-utils',
+    '@viamericas/viam-message-information':
+      '@viamericas/viam-message-information',
+    xlsx: 'xlsx',
   },
 };
