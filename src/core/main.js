@@ -281,10 +281,16 @@ const Main = ({
         newData.push([
           t('scanner.agency'),
           t('scanner.type'),
+          t('scanner.userName'),
           t('scanner.dateCreated'),
         ]);
         info.data.forEach(item => {
-          const newItem = [item.agency, item.scannerType, item.creationDate];
+          const newItem = [
+            item.agency,
+            item.scannerType,
+            item.userName,
+            item.creationDate,
+          ];
           newData.push(newItem);
         });
 
