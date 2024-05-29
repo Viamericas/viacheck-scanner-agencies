@@ -6,7 +6,6 @@ const filters = ({
   fromDate,
   toDate,
   agencies,
-  agencyCodeArray,
   onHandleChangeDateFrom,
   onHandleChangeDateTo,
   onHandleClickSearch,
@@ -29,7 +28,7 @@ const filters = ({
               onInputChange={e => onChangeAgency(e)}
               options={agencies}
               placeholder={t('scanner.selectAgency')}
-              selected={agencyCodeArray}
+              // selected={agencyCode}
               className="border-select font-size-1"
             />
           </div>

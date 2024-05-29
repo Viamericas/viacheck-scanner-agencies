@@ -25,9 +25,10 @@ const Main = ({
   const [isLoading, setIsLoading] = useState(false);
   const [fromDate, setFromDate] = useState(currentDate);
   const [toDate, setToDate] = useState(currentDate);
-  const [agencyCodeArray, setAgencyCodeArray] = useState([]);
+  // const [agencyCodeArray, setAgencyCodeArray] = useState([]);
   const [agencies, setAgencies] = useState([]);
   const [totalTransactions, setTotalTransactions] = useState(0);
+  const [agencyCode, setAgencyCode] = useState('');
   const [message, setMessage] = useState({
     show: false,
     uxMessage: '',
@@ -63,8 +64,7 @@ const Main = ({
       data: {
         dateFrom: fromDate,
         dateTo: toDate,
-        agency:
-          agencyCodeArray.length > 0 ? agencyCodeArray[0].agencyName : null,
+        agency: agencyCode,
         pageSize: itemsPage,
         pageNum: page,
       },
@@ -220,20 +220,23 @@ const Main = ({
 
   const onChangeAgency = event => {
     // when the user click on agency in dropdown list the component return array
+
     if (Array.isArray(event)) {
       if (event.length > 0) {
-        setAgencyCodeArray(event);
+        setAgencyCode(event[0].agencyName);
       } else {
-        setAgencyCodeArray([]);
+        setAgencyCode('');
       }
-    } else if (event.length > 5) {
+    } else {
       const agencySelected = agencies.filter(
         agency => agency.agencyName === event.toUpperCase()
       );
 
-      setAgencyCodeArray(agencySelected);
-    } else {
-      setAgencyCodeArray([]);
+      setAgencyCode(
+        agencySelected.length > 0
+          ? agencySelected[0].agencyName
+          : event.toUpperCase()
+      );
     }
   };
 
@@ -341,7 +344,6 @@ const Main = ({
           fromDate={fromDate}
           toDate={toDate}
           agencies={agencies}
-          agencyCodeArray={agencyCodeArray}
           onHandleChangeDateTo={onHandleChangeDateTo}
           onHandleChangeDateFrom={onHandleChangeDateFrom}
           onHandleClickSearch={onSearch}
