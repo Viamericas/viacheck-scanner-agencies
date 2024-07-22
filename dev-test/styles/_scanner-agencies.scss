@@ -81,6 +81,15 @@
   .margin-paginator {
     padding-left: 0px !important;
   }
+  &__text-left {
+    text-align: left !important;
+    padding: 8px;
+  }
+
+  &__text-right {
+    text-align: right !important;
+    padding: 8px;
+  }
 
   &__btn-general.item-delete {
     border: 0 !important;
@@ -98,13 +107,13 @@
 
   &__table-container {
     margin-top: 20px;
-    margin-left: 50px;
-    margin-right: 50px;
+    margin-left: 25px;
+    margin-right: 25px;
     position: relative;
   }
 
   &__table-subContainer {
-    width: 40%;
+    width: 100%;
     position: relative;
     margin: auto;
   }
@@ -198,7 +207,7 @@
 
   @media screen and (max-width: 1370px) {
     &__table-subContainer {
-      width: 60%;
+      width: 100%;
       position: relative;
       margin: auto;
     }

@@ -18,6 +18,24 @@
     "networkMessage": "Error 410: No podemos comunicarnos con el servidor, Verifique su conexión de internet e intente nuevamente por favor.",
     "errorOperation": "Ocurrió un error en el proceso. Por favor intente nuevamente.",
     "userName": "Usuario",
-    "export": "Exportar"
+    "export": "Exportar",
+    "ip": "IP",
+    "country": "País",
+    "city": "Ciudad",
+    "postalCode": "Código Postal",
+    "longitude": "Longitud",
+    "latitude": "Latitud",
+    "version": "Versión",
+    "branchName": "Nombre de Agencia",
+    "chainId": "Cadena",
+    "selectScanner": "Seleccione Escanner",
+    "scannerType": "Tipo de Escanner"
+  },
+  "paginator": {
+    "first": "First",
+    "previous": "Previous",
+    "next": "Next",
+    "last": "Last",
+    "before": "Previous"
   }
 }

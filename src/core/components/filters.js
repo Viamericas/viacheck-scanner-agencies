@@ -6,16 +6,19 @@ const filters = ({
   fromDate,
   toDate,
   agencies,
+  scannerTypes,
   onHandleChangeDateFrom,
   onHandleChangeDateTo,
   onHandleClickSearch,
   onChangeAgency,
+  onChangeScannerType,
   t,
 }) => {
   return (
     <div>
       <div className="row scanner-report__no-margin">
-        <div className="col-12">
+        <div className="col-3" />
+        <div className="col-3">
           <div className="scanner-report__agencies">
             <span className="scanner-report__label">
               {t('scanner.agencyCode')}
@@ -33,6 +36,27 @@ const filters = ({
             />
           </div>
         </div>
+
+        <div className="col-3">
+          <div className="scanner-report__agencies">
+            <span className="scanner-report__label">
+              {t('scanner.scannerType')}
+            </span>
+            <Typeahead
+              id="name"
+              labelKey="name"
+              multiple={false}
+              onChange={e => onChangeScannerType(e)}
+              onInputChange={e => onChangeScannerType(e)}
+              options={scannerTypes}
+              placeholder={t('scanner.selectScanner')}
+              // selected={agencyCode}
+              className="border-select font-size-1"
+            />
+          </div>
+        </div>
+
+        <div className="col-3" />
       </div>
       <br />
       <div className="row scanner-report__no-margin">

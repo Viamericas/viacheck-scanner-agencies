@@ -6,10 +6,29 @@ const ScannerTable = ({ agenciesArray, t }) => {
     <table className="scanner-report__table">
       <thead>
         <tr>
-          <th>{t('scanner.agency')}</th>
-          <th>{t('scanner.type')}</th>
-          <th>{t('scanner.userName')}</th>
-          <th>{t('scanner.dateCreated')}</th>
+          <th className="scanner-report__text-left">{t('scanner.agency')}</th>
+          <th className="scanner-report__text-left">
+            {t('scanner.branchName')}
+          </th>
+          <th className="scanner-report__text-left">{t('scanner.chainId')}</th>
+          <th className="scanner-report__text-left">{t('scanner.type')}</th>
+          <th className="scanner-report__text-left">{t('scanner.ip')}</th>
+          <th className="scanner-report__text-left">{t('scanner.country')}</th>
+          <th className="scanner-report__text-left">{t('scanner.city')}</th>
+          <th className="scanner-report__text-right">
+            {t('scanner.postalCode')}
+          </th>
+          <th className="scanner-report__text-right">
+            {t('scanner.longitude')}
+          </th>
+          <th className="scanner-report__text-right">
+            {t('scanner.latitude')}
+          </th>
+          <th className="scanner-report__text-left">{t('scanner.version')}</th>
+          <th className="scanner-report__text-left">{t('scanner.userName')}</th>
+          <th className="scanner-report__text-left">
+            {t('scanner.dateCreated')}
+          </th>
         </tr>
       </thead>
       <tbody>

@@ -17,6 +17,17 @@
     "networkMessage": "Error 410: We cannot communicate with the server, make sure you are connected to the Internet and please try again.",
     "errorOperation": "An error occurred in the process. Please try again.",
     "userName": "User Name",
-    "export": "Export"
+    "export": "Export",
+    "ip": "IP",
+    "country": "Country",
+    "city": "City",
+    "postalCode": "Postal Code",
+    "longitude": "Longitude",
+    "latitude": "Latitude",
+    "version": "Version",
+    "branchName": "Branch Name",
+    "chainId": "Chain ID",
+    "selectScanner": "Select Scanner Type",
+    "scannerType": "Scanner Type"
   }
 }

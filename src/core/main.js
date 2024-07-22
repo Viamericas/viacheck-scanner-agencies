@@ -25,10 +25,14 @@ const Main = ({
   const [isLoading, setIsLoading] = useState(false);
   const [fromDate, setFromDate] = useState(currentDate);
   const [toDate, setToDate] = useState(currentDate);
-  // const [agencyCodeArray, setAgencyCodeArray] = useState([]);
+
   const [agencies, setAgencies] = useState([]);
+  // const [chains, setChains] = useState([]);
+  const [scannerTypes, setScannerTypes] = useState([]);
   const [totalTransactions, setTotalTransactions] = useState(0);
   const [agencyCode, setAgencyCode] = useState('');
+  // const [chainId, setChainId] = useState('');
+  const [scanner, setScanner] = useState('');
   const [message, setMessage] = useState({
     show: false,
     uxMessage: '',
@@ -58,6 +62,42 @@ const Main = ({
     }
   };
 
+  const getScannerTypes = async () => {
+    try {
+      const result = await Services.Rest.instance({
+        url: `${agenciesUrl}/settings/get-scanner-types`,
+        token,
+        method: 'GET',
+        axiosInstance,
+      });
+      console.log('result', result);
+
+      if (result.status === 200) {
+        setScannerTypes(result.data);
+      }
+    } catch (e) {
+      // eslint-disable-next-line no-console
+      console.log(`Error on getAgencies error: ${e}`);
+    }
+  };
+
+  // const getChains = async () => {
+  //   try {
+  //     const result = await Services.Rest.instance({
+  //       url: `${agenciesUrl}/agencies/get-agencies-chain`,
+  //       token,
+  //       method: 'GET',
+  //       axiosInstance,
+  //     });
+
+  //     if (result.status === 200) {
+  //       setChains(result.data.agencies);
+  //     }
+  //   } catch (e) {
+  //     console.log(`Error on getAgencies error: ${e}`);
+  //   }
+  // };
+
   const getScannerAgency = page => {
     return Services.Rest.instance({
       url: `${agenciesUrl}/agencies/get-scanners-installed`,
@@ -67,6 +107,7 @@ const Main = ({
         agency: agencyCode,
         pageSize: itemsPage,
         pageNum: page,
+        scanner,
       },
       token,
       method: 'POST',
@@ -196,6 +237,8 @@ const Main = ({
 
   useEffect(() => {
     getAllAgencies();
+    getScannerTypes();
+    // getChains();
   }, []);
 
   const onHandleCloseMessage = () => {
@@ -240,6 +283,50 @@ const Main = ({
     }
   };
 
+  const onChangeScannerType = event => {
+    // when the user click on agency in dropdown list the component return array
+
+    if (Array.isArray(event)) {
+      if (event.length > 0) {
+        setScanner(event[0].name);
+      } else {
+        setScanner('');
+      }
+    } else {
+      const scannerSelected = scannerTypes.filter(
+        s => s.name === event.toUpperCase()
+      );
+
+      setScanner(
+        scannerSelected.length > 0
+          ? scannerSelected[0].name
+          : event.toUpperCase()
+      );
+    }
+  };
+
+  // const onChangeChain = event => {
+  //   // when the user click on agency in dropdown list the component return array
+
+  //   if (Array.isArray(event)) {
+  //     if (event.length > 0) {
+  //       setChainId(event[0].chainName);
+  //     } else {
+  //       setChainId('');
+  //     }
+  //   } else {
+  //     const chainSelected = chains.filter(
+  //       chain => chain.chainName === event.toUpperCase()
+  //     );
+
+  //     setChainId(
+  //       chainSelected.length > 0
+  //         ? chainSelected[0].chainName
+  //         : event.toUpperCase()
+  //     );
+  //   }
+  // };
+
   const handleKeyDownEnter = event => {
     if (event.key === 'Enter') {
       onSearch();
@@ -283,14 +370,32 @@ const Main = ({
         const newData = [];
         newData.push([
           t('scanner.agency'),
+          t('scanner.branchName'),
+          t('scanner.chainId'),
           t('scanner.type'),
+          t('scanner.ip'),
+          t('scanner.country'),
+          t('scanner.city'),
+          t('scanner.postalCode'),
+          t('scanner.longitude'),
+          t('scanner.latitude'),
+          t('scanner.version'),
           t('scanner.userName'),
           t('scanner.dateCreated'),
         ]);
         info.data.forEach(item => {
           const newItem = [
             item.agency,
+            item.chainId,
+            item.branchName,
             item.scannerType,
+            item.ip,
+            item.country,
+            item.city,
+            item.postalCode,
+            item.longitude,
+            item.latitude,
+            item.version,
             item.userName,
             item.creationDate,
           ];
@@ -344,10 +449,12 @@ const Main = ({
           fromDate={fromDate}
           toDate={toDate}
           agencies={agencies}
+          scannerTypes={scannerTypes}
           onHandleChangeDateTo={onHandleChangeDateTo}
           onHandleChangeDateFrom={onHandleChangeDateFrom}
           onHandleClickSearch={onSearch}
           onChangeAgency={onChangeAgency}
+          onChangeScannerType={onChangeScannerType}
           t={t}
         />
       </div>
