@@ -1,5 +1,5 @@
 import React from 'react';
-import InputDatePicker from '@viamericas/datepicker-multi-language';
+import InputDatePicker from '@viamericas/viacheck-datepicker-multi-language';
 import { Typeahead } from 'react-bootstrap-typeahead';
 
 const filters = ({
