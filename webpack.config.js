@@ -21,45 +21,33 @@ module.exports = {
         },
       },
       {
-        test: /\.css$/i,
-        use: ['style-loader', 'css-loader'],
+        test: /\.(png|jpe?g|gif)$/i,
+        use: ['file-loader', 'url-loader'],
       },
       {
         test: /\.s[ac]ss$/i,
         use: ['style-loader', 'css-loader', 'sass-loader'],
       },
+
       {
-        test: /\.(png|jpe?g|gif)([\?]?.*)$/,
-        loader: 'file-loader?name=assets/images/[name].[ext]',
-      },
-      {
-        test: /\.(svg|woff|woff2|ttf|eot|otf)([\?]?.*)$/,
-        loader: 'file-loader?name=assets/fonts/[name].[ext]',
+        test: /\.css$/i,
+        use: ['style-loader', 'css-loader'],
       },
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
-        use: ['babel-loader', 'eslint-loader'],
+        use: ['babel-loader'],
       },
     ],
   },
   externals: {
     react: 'commonjs react',
     'react-dom': 'react-dom',
-    'react-i18next': 'react-i18next',
     i18next: 'i18next',
-    'i18next-http-backend': 'i18next-http-backend',
+    'i18next-xhr-backend': 'i18next-xhr-backend',
+    'react-i18next': 'react-i18next',
     'prop-types': 'prop-types',
-    '@viamericas/viam-alert-messages': '@viamericas/viam-alert-messages',
-    '@viamericas/viam-loading': '@viamericas/viam-loading',
-    '@viamericas/datepicker-multi-language':
-      '@viamericas/datepicker-multi-language',
-    moment: 'moment',
-    '@viamericas/viam-pagination-reports':
-      '@viamericas/viam-pagination-reports',
-    '@viamericas/viam-utils': '@viamericas/viam-utils',
-    '@viamericas/viam-message-information':
-      '@viamericas/viam-message-information',
-    xlsx: 'xlsx',
+    'react-places-autocomplete': 'react-places-autocomplete',
+    axios: 'axios',
   },
 };
